@@ -236,7 +236,7 @@
         }
     </style>
 </head>
-<body>
+<body class="dark-mode">
 
 <button id="theme-toggle" aria-label="Toggle dark mode">
     <i class="fas fa-moon"></i>
@@ -399,10 +399,10 @@
     const themeToggle = document.getElementById('theme-toggle');
     const body = document.body;
     const icon = themeToggle.querySelector('i');
-
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     // Check for saved theme in localStorage
     const currentTheme = localStorage.getItem('theme');
-    if (currentTheme === 'dark') {
+    if (currentTheme === 'dark' || (!currentTheme && prefersDark)) {
         body.classList.add('dark-mode');
         icon.classList.replace('fa-moon', 'fa-sun');
     }
