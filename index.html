@@ -3,253 +3,410 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Elroy Lim | Professional Portfolio</title>
+    <title>Elroy Lim | Information Security</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+        /* --- 1. Define Color Variables --- */
         :root {
-            --primary: #2563eb;
-            --secondary: #64748b;
-            --dark: #0f172a;
-            --light: #f8fafc;
-            --white: #ffffff;
+            --primary: #2563eb;      /* Tech Blue */
+            --primary-dark: #1e40af;
+            --bg-body: #f8fafc;
+            --bg-card: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --pill-bg: #eff6ff;
+        }
+
+        /* --- 2. Dark Mode Variable Overrides --- */
+        body.dark-mode {
+            --bg-body: #0f172a;      /* Slate Dark */
+            --bg-card: #1e293b;      /* Slightly lighter Slate */
+            --text-main: #f1f5f9;    /* Off-white */
+            --text-muted: #94a3b8;   /* Muted Blue-Grey */
+            --border: #334155;
+            --pill-bg: #2563eb20;    /* Translucent blue */
+            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
+        }
+
+        * { 
+            box-sizing: border-box; 
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.2s ease-in-out; 
         }
 
         body {
-            font-family: 'Inter', -apple-system, sans-serif;
-            background-color: var(--light);
-            color: var(--dark);
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
             margin: 0;
-            padding: 0;
             line-height: 1.6;
         }
 
-        .container {
-            max-width: 900px;
-            margin: 40px auto;
-            background: var(--white);
-            padding: 40px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-            border-radius: 12px;
+        /* --- 3. Toggle Button Style --- */
+        #theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
         }
 
+        #theme-toggle:hover {
+            transform: scale(1.1);
+            border-color: var(--primary);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        /* --- Header Section --- */
         header {
+            background: var(--bg-card);
+            padding: 60px 40px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
             text-align: center;
-            border-bottom: 2px solid var(--primary);
-            padding-bottom: 30px;
             margin-bottom: 40px;
+            border-top: 6px solid var(--primary);
         }
 
         h1 {
-            font-size: 2.5rem;
+            font-size: 3rem;
             margin: 0;
-            color: var(--dark);
-            letter-spacing: -0.025em;
+            color: var(--text-main);
+            letter-spacing: -0.05em;
+        }
+
+        .tagline {
+            display: block;
+            color: var(--primary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 20px;
         }
 
         .contact-bar {
-            margin-top: 15px;
-            font-size: 0.95rem;
-            color: var(--secondary);
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 25px;
             flex-wrap: wrap;
+            margin-top: 20px;
         }
 
-        section {
-            margin-bottom: 40px;
+        .contact-item {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
+
+        .contact-item:hover { color: var(--primary); }
+
+        /* --- Global Section Styles --- */
+        section { margin-bottom: 50px; }
 
         h2 {
-            font-size: 1.25rem;
-            color: var(--primary);
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            border-left: 4px solid var(--primary);
-            padding-left: 15px;
-            margin-bottom: 25px;
-        }
-
-        .entry {
-            margin-bottom: 25px;
-        }
-
-        .entry-header {
+            font-size: 1.5rem;
+            color: var(--text-main);
             display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            font-weight: 700;
-            margin-bottom: 5px;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
         }
 
-        .skills-container {
+        h2::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        /* --- Project Cards --- */
+        .project-grid {
+            display: grid;
+            gap: 25px;
+        }
+
+        .project-card {
+            background: var(--bg-card);
+            padding: 35px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .project-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow);
+            border-color: var(--primary);
+        }
+
+        .project-card strong {
+            display: block;
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        /* --- Skill Pills --- */
+        .skills-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 30px;
         }
 
+        .skill-group {
+            background: var(--bg-card);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+        }
+
         .skill-group h3 {
-            font-size: 1rem;
-            color: var(--dark);
-            margin-bottom: 10px;
-        }
-
-        ul {
-            padding-left: 20px;
-            margin: 0;
-        }
-
-        li {
-            margin-bottom: 8px;
-        }
-
-        .project-card {
-            background: #f1f5f9;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
-
-        .project-card strong {
-            display: block;
+            margin-top: 0;
             font-size: 1.1rem;
-            margin-bottom: 10px;
-            color: var(--primary);
+            color: var(--text-main);
+            border-bottom: 2px solid var(--bg-body);
+            padding-bottom: 10px;
+            margin-bottom: 15px;
         }
 
-        @media (max-width: 640px) {
-            .container { padding: 20px; margin: 0; border-radius: 0; }
-            .entry-header { flex-direction: column; }
-            .skills-container { grid-template-columns: 1fr; }
+        .pill-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .pill {
+            background: var(--pill-bg);
+            color: var(--primary);
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        /* --- Experience & Education --- */
+        .timeline-card {
+            background: var(--bg-card);
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--border);
+        }
+
+        .timeline-card:hover { border-left-color: var(--primary); }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 10px;
+        }
+
+        .title { font-weight: 700; color: var(--text-main); font-size: 1.1rem; }
+        .date { color: var(--text-muted); font-size: 0.9rem; white-space: nowrap; }
+
+        ul { padding-left: 20px; color: var(--text-muted); }
+        li { margin-bottom: 10px; }
+
+        @media (max-width: 768px) {
+            .skills-grid { grid-template-columns: 1fr; }
+            .card-header { flex-direction: column; }
+            h1 { font-size: 2.2rem; }
+            #theme-toggle { top: 10px; right: 10px; width: 40px; height: 40px; }
         }
     </style>
 </head>
 <body>
 
+<button id="theme-toggle" aria-label="Toggle dark mode">
+    <i class="fas fa-moon"></i>
+</button>
+
 <div class="container">
     <header>
+        <span class="tagline">Information Security</span>
         <h1>Elroy Lim</h1>
         <div class="contact-bar">
-            <span>📍 Singapore</span>
-            <span>📞 (+65)87829022</span>
-            <span>✉️ elroylim43@gmail.com</span>
-            <span>🔗 <a href="https://www.linkedin.com/in/elroy-lim-kx/" style="color: var(--secondary); text-decoration: none;">LinkedIn</a></span>
-        </div>
-        <div class="contact-bar" style="margin-top: 5px;">
-            <span>🗣️ English, Chinese Hokkien</span>
+            <span class="contact-item"><i class="fas fa-map-marker-alt"></i> Singapore</span>
+            <a href="tel:+6587829022" class="contact-item"><i class="fas fa-phone"></i> (+65) 87829022</a>
+            <a href="mailto:elroylim43@gmail.com" class="contact-item"><i class="fas fa-envelope"></i> elroylim43@gmail.com</a>
+            <a href="https://www.linkedin.com/in/your-profile-id" target="_blank" rel="noopener noreferrer" class="contact-item">
+                <i class="fab fa-linkedin"></i> LinkedIn
+            </a>
+            <span class="contact-item"><i class="fas fa-language"></i> English, Chinese, Hokkien</span>
         </div>
     </header>
 
     <section>
-        <h2>Work Experience</h2>
-        
-        <div class="entry">
-            <div class="entry-header">
-                <span>Admin Support Assistant | Singapore Armed Forces</span>
-                <span>07/2022 – 07/2024</span>
+        <h2><i class="fas fa-tools"></i> Technical Expertise</h2>
+        <div class="skills-grid">
+            <div class="skill-group">
+                <h3>Computing & Hardware</h3>
+                <div class="pill-container">
+                    <span class="pill">Python</span>
+                    <span class="pill">C Programming</span>
+                    <span class="pill">IoT (Raspberry Pi)</span>
+                    <span class="pill">TinyCircuits</span>
+                    <span class="pill">Artificial Intelligence</span>
+                </div>
+            </div>
+            <div class="skill-group">
+                <h3>Security & RPA</h3>
+                <div class="pill-container">
+                    <span class="pill">UiPath Development</span>
+                    <span class="pill">SIEM</span>
+                    <span class="pill">Network Security</span>
+                    <span class="pill">Circuit Design</span>
+                    <span class="pill">Kanban Principles</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2><i class="fas fa-project-diagram"></i> Featured Projects</h2>
+        <div class="project-grid">
+            <div class="project-card">
+                <strong>Robotic Process Automation (RPA): NYC Billing Validation</strong>
+                <p>Developed an end-to-end automated financial workflow for the National Youth Council. Engineered RPA bots to extract email attachments into dynamic directories based on event data. Implemented complex data validation using UiPath to check UEN numbers, data types, and missing fields in Excel. Integrated automated PDF-to-Excel reconciliation to verify invoice accuracy against billing templates, significantly reducing manual check times and errors.</p>
+            </div>
+            
+            <div class="project-card">
+                <strong>Network Security Infrastructure Design</strong>
+                <p>Architected a secure multi-layered network. Implemented ASA Firewalls with ECMP, Snort IDS for threat detection, and a hardened Out-of-Band (OOB) management system using JumpHosts and TACACS+ authentication. Configured comprehensive defenses against ARP spoofing, DHCP starvation, and volumetric DoS attacks.</p>
+            </div>
+
+            <div class="project-card">
+                <strong>AI Storybook Writer</strong>
+                <p>Built a system using Ollama and multiple AI instances to outline, write, and edit cohesive narratives. Conducted extensive testing to improve creativity and usability.</p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2><i class="fas fa-briefcase"></i> Work Experience</h2>
+        <div class="timeline-card">
+            <div class="card-header">
+                <span class="title">Admin Support Assistant | Singapore Armed Forces</span>
+                <span class="date">07/2022 – 07/2024</span>
             </div>
             <ul>
                 <li>Handled secure data such as NSman IC numbers, addresses, and phone numbers.</li>
-                <li>Operated effectively within high-load environments.</li>
-                <li>Developed proficiency in Microsoft Excel.</li>
+                <li>Operated effectively within high-load environments and developed proficiency in Microsoft Excel.</li>
             </ul>
         </div>
 
-        <div class="entry">
-            <div class="entry-header">
-                <span>Intern | Beyondsoft</span>
-                <span>03/2021 – 05/2021</span>
+        <div class="timeline-card">
+            <div class="card-header">
+                <span class="title">Intern | Beyondsoft</span>
+                <span class="date">03/2021 – 05/2021</span>
             </div>
             <ul>
                 <li>Fabricated and assembled prototype printer cartridges based on engineering designs.</li>
                 <li>Ensured high precision and functionality of components.</li>
             </ul>
         </div>
-
-        <div class="entry">
-            <div class="entry-header">
-                <span>Part Time Technician | JK Technology Pte Ltd</span>
-                <span>02/2019 – 03/2019</span>
-            </div>
-            <ul>
-                <li>Installed and configured computer systems and peripherals for clients.</li>
-                <li>Troubleshot installation issues to minimize downtime.</li>
-            </ul>
-        </div>
     </section>
 
     <section>
-        <h2>Technical Skills</h2>
-        <div class="skills-container">
-            <div class="skill-group">
-                <h3>Computing & Hardware</h3>
-                <ul>
-                    <li>Python and C programming</li>
-                    <li>IoT (Raspberry Pi, TinyCircuits)</li>
-                    <li>Artificial Intelligence</li>
-                </ul>
-            </div>
-            <div class="skill-group">
-                <h3>Security & RPA</h3>
-                <ul>
-                    <li>UiPath Development</li>
-                    <li>SIEM & Network Security</li>
-                    <li>Circuit Design & Logic Gates</li>
-                    <li>Kanban Principles</li>
-                </ul>
+        <h2><i class="fas fa-graduation-cap"></i> Education & Certifications</h2>
+        <div class="timeline-card">
+            <div class="card-header">
+                <span class="title">B.Eng (Hons) ICT (Information Security) | SIT</span>
+                <span class="date">2024 – Present</span>
             </div>
         </div>
-    </section>
 
-    <section>
-        <h2>Featured Projects</h2>
-        <div class="project-card">
-            <strong>Robotic Process Automation (RPA): NYC Billing Validation</strong>
-            Developed an end-to-end automated financial workflow for the National Youth Council. Engineered RPA bots to extract email attachments into dynamic directories based on event data. Implemented complex data validation using UiPath to check UEN numbers, data types, and missing fields in Excel. Integrated automated PDF-to-Excel reconciliation to verify invoice accuracy against billing templates, significantly reducing manual check times and errors.
+        <div class="timeline-card">
+            <div class="card-header">
+                <span class="title">Diploma in InfoComm and Security | NYP</span>
+                <span class="date">2019 – 2021</span>
+            </div>
         </div>
-        <div class="project-card">
-            <strong>Network Security Infrastructure Design</strong>
-            Architected a secure multi-layered network. Implemented ASA Firewalls with ECMP, Snort IDS for threat detection, and a hardened Out-of-Band (OOB) management system using JumpHosts and TACACS+ authentication. Configured comprehensive defenses against ARP spoofing, DHCP starvation, and volumetric DoS attacks (TCP SYN/Slowloris).
-        </div>
-        <div class="project-card">
-            <strong>AI Storybook Writer</strong>
-            Built a system using Ollama and multiple AI instances to outline, write, and edit cohesive narratives. Conducted extensive testing to improve creativity and usability.
-        </div>
-        <div class="project-card">
-            <strong>Automatic Plant Waterer</strong>
-            Designed an automated system using TinyCircuits microcontrollers to monitor soil moisture and control water delivery.
-        </div>
-    </section>
 
-    <section>
-        <h2>Education & Leadership</h2>
-        <div class="entry">
-            <div class="entry-header">
-                <span>Bachelor of Engineering with Honours in Information and Communications Technology <br> majoring in Information Security | Singapore Insitute of Technology</span>
-                <span>2024 – 2028</span>
+        <div class="timeline-card">
+            <div class="card-header">
+                <span class="title">Higher Nitec in Electronic Engineering | ITE</span>
+                <span class="date">2018 – 2019</span>
             </div>
         </div>
-        <div class="entry">
-            <div class="entry-header">
-                <span>Diploma in InfoComm and Security | Nanyang Polytechnic</span>
-                <span>2019 – 2021</span>
+
+        <div class="timeline-card">
+            <div class="card-header">
+                <span class="title">Extra-Curricular & Certifications</span>
             </div>
-        </div>
-        <div class="entry">
-            <div class="entry-header">
-                <span>Higher Nitec in Electronic Engineering | ITE</span>
-                <span>2018 – 2019</span>
-            </div>
-        </div>
-        <div class="entry">
             <ul>
                 <li><strong>Google Cybersecurity Specialization:</strong> Issued Feb 2024 (Credential ID: 8BTLBDPTRRSF).</li>
-                <li><strong>NCC Third Sergeant:</strong> Developed key leadership and team management skills.</li>
                 <li><strong>Certifications:</strong> Workplace Communication & Teamwork.</li>
-                <li><strong>Activities:</strong> Green Ambassador & Mind Games Club.</li>
             </ul>
+        </div>
+    </section>
+    
+    <section>
+        <h2><i class="fas fa-star"></i> Others</h2>
+        <div class="timeline-card">
+            <div class="card-header">
+                <span class="title">NCC Third Sergeant</span>
+                <span class="date">Leadership</span>
+            </div>
+            <p>Developed leadership and team management skills through military service coordination.</p>
+        </div>
+        <div class="timeline-card">
+            <div class="card-header">
+                <span class="title">Activities</span>
+            </div>
+            <p>Green Ambassador & Mind Games Club member.</p>
         </div>
     </section>
 </div>
+
+<script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const body = document.body;
+    const icon = themeToggle.querySelector('i');
+
+    // Check for saved theme in localStorage
+    const currentTheme = localStorage.getItem('theme');
+    if (currentTheme === 'dark') {
+        body.classList.add('dark-mode');
+        icon.classList.replace('fa-moon', 'fa-sun');
+    }
+
+    themeToggle.addEventListener('click', () => {
+        body.classList.toggle('dark-mode');
+        
+        let theme = 'light';
+        if (body.classList.contains('dark-mode')) {
+            theme = 'dark';
+            icon.classList.replace('fa-moon', 'fa-sun');
+        } else {
+            icon.classList.replace('fa-sun', 'fa-moon');
+        }
+        
+        // Save the choice
+        localStorage.setItem('theme', theme);
+    });
+</script>
 
 </body>
 </html>
